@@ -91,6 +91,13 @@ func TestPodContainerProxier_rewriteImage(t *testing.T) {
 			expected: "harbor.example.com/dockerhub-proxy/library/centos:latest",
 		},
 		{
+			name:     "a wrong format image should not be rewritten",
+			image:    "docker.io/library/centos:",
+			os:       "linux",
+			platform: "amd64",
+			expected: "docker.io/library/centos:",
+		},
+		{
 			name:     "an image from gcr should not be rewritten",
 			image:    "k8s.gcr.io/kubernetes",
 			os:       "linux",
