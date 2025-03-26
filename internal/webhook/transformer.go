@@ -237,6 +237,12 @@ func (t *ruleTransformer) RewriteImage(imageRef string) (string, error) {
 }
 
 func (t *ruleTransformer) doRewriteImage(imageRef string) (rewritten bool, updatedRef string, err error) {
+	isValidFormat := CheckImageRefFormat(imageRef)
+	if !isValidFormat {
+		logger.Info(fmt.Sprintf("Image ref format %s is not valid, skip it", imageRef))
+		return false, imageRef, nil
+	}
+
 	registry, err := RegistryFromImageRef(imageRef)
 	if err != nil {
 		return false, "", err

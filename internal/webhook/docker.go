@@ -11,6 +11,12 @@ import (
 
 const BareRegistry = "docker.io"
 
+// CheckImageRefFormat returns a boolean that validates or not the image ref format.
+func CheckImageRefFormat(imageReference string) (valid bool) {
+	_, err := reference.Parse(imageReference)
+	return err == nil
+}
+
 // RegistryFromImageRef returns the registry (and port, if set) from the image reference,
 // otherwise returns the default bare registry, "docker.io".
 func RegistryFromImageRef(imageReference string) (registry string, err error) {
